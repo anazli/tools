@@ -38,11 +38,23 @@ Vec3& Vec3::operator+=(const double& num)
     return *this;
 }
 
+Vec3& Vec3::operator+=(const Vec3& v)
+{
+    *this = (*this) + v;
+    return *this;
+}
+
 Vec3& Vec3::operator-=(const double& num)
 {
     *this = (*this) - num;
     return *this;
 }
+
+Vec3& Vec3::operator-=(const Vec3& v)
+{
+    *this = (*this) - v;
+    return *this;
+} 
 
 Vec3& Vec3::operator*=(const double& num)
 {
@@ -52,10 +64,8 @@ Vec3& Vec3::operator*=(const double& num)
 
 Vec3& Vec3::normalize()
 {
-    double norm = this->magnitude();
-    if(norm == 0.)
-        throw "Division by zero!";
-    *this = (*this)/norm;
+    double norm = this->length();
+    *this = (*this)/(norm + 1.E-30);
     return *this;
 }
 
@@ -68,11 +78,13 @@ istream& operator>>(istream& in, Vec3& v)
     double x,y,z;
     in >> x >> y >> z;
     v.setXYZ(x,y,z);
+    return in;
 }
 
 ostream& operator<<(ostream& out, const Vec3& v)
 {
     out << "(" << v.x() << "," << v.y() << "," << v.z() << ")";
+    return out;
 }
 
 
@@ -135,9 +147,8 @@ Vec3 operator/(const Vec3& v1, const Vec3& v2)
 
 Vec3 operator/(const Vec3& v, const double& num)
 {
-    if(num == 0.)
-        throw "Division by zero!";
-    return Vec3(v.x()/num, v.y()/num, v.z()/num);
+    double e = 1.E-30;
+    return Vec3(v.x()/(num+e), v.y()/(num+e), v.z()/(num+e));
 }
 
 
@@ -173,16 +184,14 @@ Vec3 cross(const Vec3& v1, const Vec3& v2)
     return Vec3(x,y,z);
 }
 
-double Vec3::magnitude()const
+double Vec3::length()const
 {
     return sqrt( x() * x() + y() * y() + z() * z() );
 }
 
 Vec3 getUnitVectorOf(const Vec3& v)
 {
-    if(v.magnitude() == 0.)
-        throw "Division by zero!";
-    return v/v.magnitude();
+    return v/(v.length()+1.E-30);
 }
 
 Vec3 randomVector(const double& a, const double& b)
