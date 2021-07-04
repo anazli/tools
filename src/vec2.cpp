@@ -73,8 +73,8 @@ Vec2& Vec2::normalize()
 
 istream& operator>>(istream& in, Vec2& v)
 {
-    double x,y,z;
-    in >> x >> y >> z;
+    double x,y;
+    in >> x >> y;
     v.setXY(x,y);
     return in;
 }
