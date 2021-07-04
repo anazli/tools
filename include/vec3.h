@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef VEC3_H
+#define VEC3_H
 
 #include<iostream>
 #include<random>
@@ -138,4 +138,4 @@ Vec3 randomVector(const double& a = 0., const double& b = 1.); //!< Returns a ve
 Vec3 randomVectorOnUnitSphere(); //!< Returns a random vector on a unit sphere.
 
 
-#endif // VECTOR_H
+#endif // VEC3_H
