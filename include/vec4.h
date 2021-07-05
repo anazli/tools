@@ -335,4 +335,8 @@ Vec4<T> getUnitVectorOf(
   return v / (v.length() + 1.E-30);
 }
 
+typedef Vec4<double> Vec4d;
+typedef Vec4<float> Vec4f;
+typedef Vec4<int> Vec4i;
+
 #endif  // VEC4_H
