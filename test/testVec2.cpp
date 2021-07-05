@@ -103,11 +103,9 @@ TEST_F(Vector2, GetUnitVectorOf) {
   ASSERT_DOUBLE_EQ(v.length(), 1.);
 }
 
-
-TEST_F(Vector2, AddsTwoVectors)
-{
-    v = Vec2<double>(4.532, 45.67);
-    v = v + Vec2<double>(0.3456, 124.67);
-    ASSERT_DOUBLE_EQ(v.x(), 4.8776);
-    ASSERT_DOUBLE_EQ(v.y(), 170.34);
+TEST_F(Vector2, AddsTwoVectors) {
+  v = Vec2<double>(4.532, 45.67);
+  v = v + Vec2<double>(0.3456, 124.67);
+  ASSERT_DOUBLE_EQ(v.x(), 4.8776);
+  ASSERT_DOUBLE_EQ(v.y(), 170.34);
 }
