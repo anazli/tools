@@ -77,3 +77,37 @@ TEST_F(Vector2, GetsLenghtOfVector) {
   v = Vec2<double>(-5., -5.);
   ASSERT_DOUBLE_EQ(v.length(), sqrt(50.));
 }
+
+TEST_F(Vector2, MultipliesVectorWithNumber) {
+  v = Vec2<double>(1., 0.);
+  v *= 5.;
+  ASSERT_DOUBLE_EQ(v.x(), 5.);
+  ASSERT_DOUBLE_EQ(v.y(), 0.);
+}
+
+TEST_F(Vector2, NormalizesVector) {
+  v = Vec2<double>(4.53, 93.5);
+  ASSERT_DOUBLE_EQ(v.normalize().length(), 1.);
+}
+
+TEST_F(Vector2, DotProduct) {
+  v = Vec2<double>(3., 3.);
+  ASSERT_DOUBLE_EQ(dot(v, Vec2<double>(3., 3.)), 18.);
+  v = Vec2<double>(-1., 5.);
+  ASSERT_DOUBLE_EQ(dot(v, Vec2<double>(-3., 3.)), 18.);
+}
+
+TEST_F(Vector2, GetUnitVectorOf) {
+  v = Vec2<double>(4.36, 7.62);
+  v = getUnitVectorOf(v);
+  ASSERT_DOUBLE_EQ(v.length(), 1.);
+}
+
+
+TEST_F(Vector2, AddsTwoVectors)
+{
+    v = Vec2<double>(4.532, 45.67);
+    v = v + Vec2<double>(0.3456, 124.67);
+    ASSERT_DOUBLE_EQ(v.x(), 4.8776);
+    ASSERT_DOUBLE_EQ(v.y(), 170.34);
+}
