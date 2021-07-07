@@ -109,3 +109,34 @@ TEST_F(Vector2, AddsTwoVectors) {
   ASSERT_DOUBLE_EQ(v.x(), 4.8776);
   ASSERT_DOUBLE_EQ(v.y(), 170.34);
 }
+
+TEST_F(Vector2, SubtractsTwoVectors) {
+  v = Vec2<double>(40.54, 2.4);
+  v = v - Vec2<double>(4.20, -1.7);
+  ASSERT_DOUBLE_EQ(v[0], 36.34);
+  ASSERT_DOUBLE_EQ(v[1], 4.1);
+}
+
+TEST_F(Vector2, DevidesVectorByNumber) {
+  v = Vec2<double>(36.6, -30.6);
+  v = v / 3.;
+  ASSERT_DOUBLE_EQ(v.x(), 36.6 / 3.);
+  ASSERT_DOUBLE_EQ(v.y(), -30.6 / 3.);
+}
+
+TEST_F(Vector2, DevidesVectorByVector) {
+  v = Vec2<double>(434.5, 93.5);
+  v = v / Vec2<double>(32.5, -16.2);
+  ASSERT_DOUBLE_EQ(v.x(), 434.5 / 32.5);
+  ASSERT_DOUBLE_EQ(v.y(), -93.5 / 16.2);
+}
+
+TEST_F(Vector2, TestsEquality) {
+  v = Vec2<double>(4.2, -6.54);
+  ASSERT_TRUE(v == Vec2<double>(4.2, -6.54));
+}
+
+TEST_F(Vector2, TestsInequality) {
+  v = Vec2<double>(4.2, -6.54);
+  ASSERT_TRUE(v != Vec2<double>(-4.2, -4.36));
+}
