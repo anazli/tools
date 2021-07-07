@@ -103,8 +103,11 @@ class Vec3 {
       const T& num);  //!< Overloaded unary (*=) operator. Multiplies the
                       //!< vector's components by a value num.
 
-  Vec3<T>& normalize();   //!< Makes the vector a unit vector of length one.
-  double length() const;  //!< Returns the length of the vector.
+  Vec3<T>& normalize();  //!< Makes the vector a unit vector of length one.
+  double length() const  //!< Returns the length of the vector.
+  {
+    return sqrt(x() * x() + y() * y() + z() * z());
+  }
 
  private:
   T m_x;
