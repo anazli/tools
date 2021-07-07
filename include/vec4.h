@@ -108,8 +108,11 @@ class Vec4 {
       const T& num);  //!< Overloaded unary (*=) operator. Multiplies the
                       //!< vector's components by a value num.
 
-  Vec4<T>& normalize();   //!< Makes the vector a unit vector of length one.
-  double length() const;  //!< Returns the length of the vector.
+  Vec4<T>& normalize();  //!< Makes the vector a unit vector of length one.
+  double length() const  //!< Returns the length of the vector.
+  {
+    return sqrt(x() * x() + y() * y() + z() * z() + w() * w());
+  }
 
  private:
   T m_x;
@@ -306,7 +309,7 @@ bool operator==(const Vec4<T>& v1,
                 const Vec4<T>& v2)  //!< Overloaded binary (==) operator. Checks
                                     //!< if two vectors are identical.
 {
-  return (v1.x() == v2.x() && v1.y() == v2.y() && v1.z() == v2.z(),
+  return (v1.x() == v2.x() && v1.y() == v2.y() && v1.z() == v2.z() &&
           v1.w() == v2.w());
 }
 
