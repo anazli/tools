@@ -200,6 +200,7 @@ Vec2<T> operator+(const Vec2<T>& v1,
 {
   return Vec2<T>(v1.x() + v2.x(), v1.y() + v2.y());
 }
+
 template <typename T>
 Vec2<T> operator+(const Vec2<T>& v,
                   const T& num)  //!< Overloaded binary (+) operator. Addition
@@ -207,6 +208,7 @@ Vec2<T> operator+(const Vec2<T>& v,
 {
   return Vec2<T>(v.x() + num, v.y() + num);
 }
+
 template <typename T>
 Vec2<T> operator+(const T& num,
                   const Vec2<T>& v)  //!< Overloaded binary (+) operator.
@@ -230,6 +232,7 @@ Vec2<T> operator-(const Vec2<T>& v,
 {
   return Vec2<T>(v.x() - num, v.y() - num);
 }
+
 template <typename T>
 Vec2<T> operator-(
     const T& num,
@@ -246,6 +249,7 @@ Vec2<T> operator*(const Vec2<T>& v1,
 {
   return Vec2<T>(v1.x() * v2.x(), v1.y() * v2.y());
 }
+
 template <typename T>
 Vec2<T> operator*(const Vec2<T>& v,
                   const T& num)  //!< Overloaded binary (*) operator. !<
@@ -253,6 +257,7 @@ Vec2<T> operator*(const Vec2<T>& v,
 {
   return Vec2<T>(v.x() * num, v.y() * num);
 }
+
 template <typename T>
 Vec2<T> operator*(
     const T& num,
@@ -271,6 +276,7 @@ Vec2<T> operator/(
   if (v2.x() == (T)0 || v2.y() == (T)0) throw "Division by zero!";
   return Vec2<T>(v1.x() / v2.x(), v1.y() / v2.y());
 }
+
 template <typename T>
 Vec2<T> operator/(const Vec2<T>& v,
                   const T& num)  //!< Overloaded binary (/) operator. Division
@@ -287,6 +293,7 @@ bool operator==(const Vec2<T>& v1,
 {
   return (v1.x() == v2.x() && v1.y() == v2.y());
 }
+
 template <typename T>
 bool operator!=(const Vec2<T>& v1,
                 const Vec2<T>& v2)  //!< Overloaded binary (!=) operator. Checks
