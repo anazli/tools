@@ -11,11 +11,10 @@ class Mat2 {
     m_vec[0].setXY(num);
     m_vec[1].setXY(num);
   }
-  Mat2<T>(const Mat2<T>& row1, const Mat2<T>& row2) {
+  Mat2<T>(const Vec2<T>& row1, const Vec2<T>& row2) {
     m_vec[0] = row1;
     m_vec[1] = row2;
   }
-  Mat2<T>(const Mat2<T>& mat) { m_vec = mat; }
 
   Mat2<T>& operator=(const Mat2<T>& c) {
     m_vec[0] = c[0];
@@ -51,6 +50,18 @@ class Mat2 {
     m_vec[0] *= num;
     m_vec[1] *= num;
     return *this;
+  }
+
+  Vec2<T> operator[](int i) const {
+    assert(i >= 0 && i <= 1);
+    if (i == 0) return m_vec[0];
+    return m_vec[1];
+  }
+
+  Vec2<T>& operator[](int i) {
+    assert(i >= 0 && i <= 1);
+    if (i == 0) return m_vec[0];
+    return m_vec[1];
   }
 
   double Determinant() const {
