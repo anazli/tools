@@ -323,8 +323,4 @@ Vec2<T> getUnitVectorOf(
   return v / (v.length() + 1.E-30);
 }
 
-typedef Vec2<double> Vec2d;
-typedef Vec2<float> Vec2f;
-typedef Vec2<int> Vec2i;
-
 #endif  // VEC2_H

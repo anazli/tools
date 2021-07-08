@@ -1,8 +1,6 @@
 #include <iostream>
 
-#include "../include/vec2.h"
-#include "../include/vec3.h"
-#include "../include/vec4.h"
+#include "../include/tools.h"
 
 using namespace std;
 
@@ -18,6 +16,12 @@ int main() {
 
   Vec4d v4(1.4, 5.3, 56., 0.);
   cout << v4 << endl;
+
+  Vec2d v2[2];
+  v2[0].setXY(2.);
+  v2[1].setXY(3.);
+  cout << v2[0] << endl;
+  cout << v2[1] << endl;
 
   return 0;
 }

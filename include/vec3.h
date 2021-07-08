@@ -373,8 +373,4 @@ randomVectorOnUnitSphere()  //!< Returns a random vector on a unit sphere.
   return ret;
 }
 
-typedef Vec3<double> Vec3d;
-typedef Vec3<float> Vec3f;
-typedef Vec3<int> Vec3i;
-
 #endif  // VEC3_H

@@ -1,6 +1,4 @@
-#include "../include/vec2.h"
-#include "../include/vec3.h"
-#include "../include/vec4.h"
+#include "../include/tools.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
