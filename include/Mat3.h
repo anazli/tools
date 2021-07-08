@@ -74,15 +74,21 @@ class Mat3 {
     return m_vec[2];
   }
 
-  double Determinant();
-  const
+  T trace() const;
 
-      private : Vec3<T>
-                    m_vec[3];
+  double determinant() const;
+
+ private:
+  Vec3<T> m_vec[3];
 };
 
 template <typename T>
-double Mat3<T>::Determinant() {
+T Mat3<T>::trace() const {
+  return m_vec[0][0] + m_vec[1][1] + m_vec[2][2];
+}
+
+template <typename T>
+double Mat3<T>::determinant() const {
   double r1 =
       m_vec[0][0] * (m_vec[1][1] * m_vec[2][2] - m_vec[1][2] * m_vec[2][1]);
   double r2 =
@@ -130,6 +136,8 @@ Mat3<T> operator*(const Mat3<T>& m1, const Mat3<T>& m2) {
   Vec3<T> retRow1 = Vec3<T>(dot(row1, col1), dot(row1, col2), dot(row1, col3));
   Vec3<T> retRow2 = Vec3<T>(dot(row2, col1), dot(row2, col2), dot(row2, col3));
   Vec3<T> retRow3 = Vec3<T>(dot(row3, col1), dot(row3, col2), dot(row3, col3));
+
+  return Mat3<T>( retRow1, retRow2, retRow3);
   */
 
   /* 00 01 02
