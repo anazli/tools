@@ -5,6 +5,7 @@
 #include "vec3.h"
 #include "vec4.h"
 #include "Mat2.h"
+#include "Mat3.h"
 
 typedef Vec2<double> Vec2d;
 typedef Vec2<float> Vec2f;
