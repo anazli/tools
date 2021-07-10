@@ -82,7 +82,21 @@ class Mat3 {
     m_vec[2].zero();
   }
 
-  double determinant() const;
+  void identity() {
+    m_vec[0] = Vec3<T>(1, 0, 0);
+    m_vec[1] = Vec3<T>(0, 1, 0);
+    m_vec[2] = Vec3<T>(0, 0, 1);
+  }
+
+  T determinant() const;
+  Mat2<T> minor(const int& i, const int& j) const;
+  Mat3<T> inverse() const;
+  Mat3<T> transpose() const;
+  T coFactor(const int& i, const int& j) const {
+    Mat2<T> mi = minor(i, j);
+    T C = T(pow(-1, i + 1 + j + 1)) * mi.determinant();
+    return C;
+  }
 
  private:
   Vec3<T> m_vec[3];
@@ -94,7 +108,7 @@ T Mat3<T>::trace() const {
 }
 
 template <typename T>
-double Mat3<T>::determinant() const {
+T Mat3<T>::determinant() const {
   double r1 =
       m_vec[0][0] * (m_vec[1][1] * m_vec[2][2] - m_vec[1][2] * m_vec[2][1]);
   double r2 =
@@ -103,6 +117,62 @@ double Mat3<T>::determinant() const {
       m_vec[0][2] * (m_vec[1][0] * m_vec[2][1] - m_vec[1][1] * m_vec[2][0]);
 
   return r1 - r2 + r3;
+}
+
+template <typename T>
+Mat2<T> Mat3<T>::minor(const int& i, const int& j) const {
+  Mat2<T> mi;
+
+  int yy = 0;
+  for (int y = 0; y < 3; y++) {
+    if (y == j) continue;
+
+    int xx = 0;
+    for (int x = 0; x < 3; x++) {
+      if (x == i) {
+        continue;
+      }
+      xx++;
+      mi.m_vec[xx][yy] = m_vec[x][y];
+    }
+
+    yy++;
+  }
+
+  return mi;
+}
+
+template <typename T>
+Mat3<T> Mat3<T>::inverse() const {
+  Mat3<T> inv;
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      inv.m_vec[j][i] = coFactor(i, j);
+    }
+  }
+
+  T det = determinant();
+  T invDet = 1. / det;
+  inv *= invDet;
+  return inv;
+}
+
+template <typename T>
+Mat3<T> Mat3<T>::transpose() const {
+  Mat3<T> ret;
+  ret[0][0] = m_vec[0][0];
+  ret[1][0] = m_vec[0][1];
+  ret[2][0] = m_vec[0][2];
+
+  ret[0][1] = m_vec[1][0];
+  ret[1][1] = m_vec[1][1];
+  ret[2][1] = m_vec[1][2];
+
+  ret[0][2] = m_vec[2][0];
+  ret[1][2] = m_vec[2][1];
+  ret[2][2] = m_vec[2][2];
+
+  return ret;
 }
 
 template <typename T>
