@@ -109,6 +109,26 @@ class Vec3 {
     return sqrt(x() * x() + y() * y() + z() * z());
   }
 
+  bool isValid() {
+    if (m_x * 0. != m_x * 0.) {
+      return false;
+    }
+    if (m_y * 0. != m_y * 0.) {
+      return false;
+    }
+    if (m_z * 0. != m_z * 0.) {
+      return false;
+    }
+
+    return true;
+  }
+
+  void zero() {
+    m_x = (T)0;
+    m_y = (T)0;
+    m_z = (T)0;
+  }
+
  private:
   T m_x;
   T m_y;

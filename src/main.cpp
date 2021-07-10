@@ -20,8 +20,12 @@ int main() {
   Vec2d v2[2];
   v2[0].setXY(2.);
   v2[1].setXY(3.);
-  cout << v2[0] << endl;
-  cout << v2[1] << endl;
+  cout << v2[0][0] << endl;
+  cout << v2[1][1] << endl;
+
+  Mat2<double> m(v2[0], v2[1]);
+  cout << m[0][0] << endl;
+
 
   return 0;
 }

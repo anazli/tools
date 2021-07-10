@@ -98,6 +98,17 @@ class Vec2 {
     return sqrt(x() * x() + y() * y());
   }
 
+  bool isValid() {
+    if (m_x * 0. != m_x * 0.) {
+      return false;
+    }
+    if (m_y * 0. != m_y * 0.) {
+      return false;
+    }
+
+    return true;
+  }
+
  private:
   T m_x;
   T m_y;

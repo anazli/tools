@@ -76,6 +76,12 @@ class Mat3 {
 
   T trace() const;
 
+  void zero() {
+    m_vec[0].zero();
+    m_vec[1].zero();
+    m_vec[2].zero();
+  }
+
   double determinant() const;
 
  private:
