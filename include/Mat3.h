@@ -129,11 +129,10 @@ Mat2<T> Mat3<T>::minor(const int& i, const int& j) const {
 
     int xx = 0;
     for (int x = 0; x < 3; x++) {
-      if (x == i) {
-        continue;
-      }
+      if (x == i) continue;
+
+      mi[xx][yy] = m_vec[x][y];
       xx++;
-      mi.m_vec[xx][yy] = m_vec[x][y];
     }
 
     yy++;
@@ -187,7 +186,6 @@ Mat3<T> operator-(const Mat3<T>& m1, const Mat3<T>& m2) {
 
 template <typename T>
 Mat3<T> operator*(const Mat3<T>& m1, const Mat3<T>& m2) {
-
   Vec3<T> row1 = m1[0];
   Vec3<T> row2 = m1[1];
   Vec3<T> row3 = m1[2];
@@ -200,12 +198,11 @@ Mat3<T> operator*(const Mat3<T>& m1, const Mat3<T>& m2) {
   Vec3<T> retRow2 = Vec3<T>(dot(row2, col1), dot(row2, col2), dot(row2, col3));
   Vec3<T> retRow3 = Vec3<T>(dot(row3, col1), dot(row3, col2), dot(row3, col3));
 
-  return Mat3<T>( retRow1, retRow2, retRow3);
+  return Mat3<T>(retRow1, retRow2, retRow3);
 
   /* 00 01 02
    * 10 11 12
    * 20 21 22*/
-
 }
 
 template <typename T>

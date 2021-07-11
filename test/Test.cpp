@@ -714,11 +714,10 @@ TEST_F(Matrix3, MultipliesTwoMatrices) {
   ASSERT_DOUBLE_EQ(m[2][2], -5.25);
 }
 
-TEST_F(Matrix3, GetTransposeOfMatrix)
-{
+TEST_F(Matrix3, GetTransposeOfMatrix) {
   m = Mat3<double>(Vec3<double>(1.36, 1.28, 0.85), Vec3<double>(1.5, 0., -6.58),
                    Vec3<double>(4.5, 0., -3.));
-  
+
   Mat3<double> mt = m.transpose();
   ASSERT_DOUBLE_EQ(mt[0][0], 1.36);
   ASSERT_DOUBLE_EQ(mt[0][1], 1.5);
@@ -731,5 +730,23 @@ TEST_F(Matrix3, GetTransposeOfMatrix)
   ASSERT_DOUBLE_EQ(mt[2][0], 0.85);
   ASSERT_DOUBLE_EQ(mt[2][1], -6.58);
   ASSERT_DOUBLE_EQ(mt[2][2], -3.);
+}
 
+TEST_F(Matrix3, GetInverseOfMatrix) {
+  m = Mat3<double>(Vec3<double>(1.36, 1.28, 0.85), Vec3<double>(1.5, 0., -6.58),
+                   Vec3<double>(4.5, 0., -3.));
+
+  m = m.inverse();
+
+  ASSERT_DOUBLE_EQ(m[0][0], 0.);
+  ASSERT_DOUBLE_EQ(m[0][1], -0.11947431302270011946);
+  ASSERT_DOUBLE_EQ(m[0][2], 0.26204699322978892872);
+
+  ASSERT_DOUBLE_EQ(m[1][0], 0.78125);
+  ASSERT_DOUBLE_EQ(m[1][1], 0.24594907407407407407);
+  ASSERT_DOUBLE_EQ(m[1][2], -0.31809413580246913581);
+
+  ASSERT_DOUBLE_EQ(m[2][0], 0.);
+  ASSERT_DOUBLE_EQ(m[2][1], -0.17921146953405017921);
+  ASSERT_DOUBLE_EQ(m[2][2], 0.059737156511350059737);
 }
