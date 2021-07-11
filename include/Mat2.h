@@ -64,7 +64,7 @@ class Mat2 {
     return m_vec[1];
   }
 
-  double Determinant() const {
+  double determinant() const {
     return m_vec[0].x() * m_vec[1].y() - m_vec[0].y() * m_vec[1].x();
   }
 
