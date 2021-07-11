@@ -959,61 +959,89 @@ TEST_F(Matrix4, AddsTwoMatrices) {
   ASSERT_DOUBLE_EQ(m4[3][3], 8.5);
 }
 
-/*TEST_F(Matrix4, MultipliesTwoMatrices) {
-  m = Mat4<double>(Vec4<double>(1.36, 1.28, 0.85), Vec4<double>(1.5, 0., -6.58),
-                   Vec4<double>(4.5, 0., -3.));
+TEST_F(Matrix4, MultipliesTwoMatrices) {
+  m4 = Mat4<double>(
+      Vec4<double>(1.36, 1.28, 0.85, -1.), Vec4<double>(1.5, 0., -6.58, 0.),
+      Vec4<double>(4.5, 0., -3., 0.), Vec4<double>(5.8, -3.4, 0., -1));
   Mat4<double> m2(
-      Vec4<double>(9., -5.8, -4.5), Vec4<double>(-6.5, 5.3, 20.),
-      Vec4<double>(8.6, 33.,
-                   -5.));  // With an anonymous object, it doesn't pass
-  m = m * m2;
+      Vec4<double>(9., -5.8, -4.5, -1.1), Vec4<double>(-6.5, 5.3, 20., 2.2),
+      Vec4<double>(8.6, 33., -5., -4.),
+      Vec4<double>(0., -5., 8.,
+                   -3.));  // With an anonymous object, it doesn't pass
+  m4 = m4 * m2;
 
-  ASSERT_DOUBLE_EQ(m[0][0], 11.23);
-  ASSERT_DOUBLE_EQ(m[0][1], 26.946);
-  ASSERT_DOUBLE_EQ(m[0][2], 15.23);
+  ASSERT_DOUBLE_EQ(m4[0][0], 11.23);
+  ASSERT_DOUBLE_EQ(m4[0][1], 31.946);
+  ASSERT_DOUBLE_EQ(m4[0][2], 7.23);
+  ASSERT_DOUBLE_EQ(m4[0][3], 0.92);
 
-  ASSERT_DOUBLE_EQ(m[1][0], -43.088);
-  ASSERT_DOUBLE_EQ(m[1][1], -225.84);
-  ASSERT_DOUBLE_EQ(m[1][2], 26.15);
+  ASSERT_DOUBLE_EQ(m4[1][0], -43.088);
+  ASSERT_DOUBLE_EQ(m4[1][1], -225.84);
+  ASSERT_DOUBLE_EQ(m4[1][2], 26.15);
+  ASSERT_DOUBLE_EQ(m4[1][3], 24.67);
 
-  ASSERT_DOUBLE_EQ(m[2][0], 14.7);
-  ASSERT_DOUBLE_EQ(m[2][1], -125.1);
-  ASSERT_DOUBLE_EQ(m[2][2], -5.25);
+  ASSERT_DOUBLE_EQ(m4[2][0], 14.7);
+  ASSERT_DOUBLE_EQ(m4[2][1], -125.1);
+  ASSERT_DOUBLE_EQ(m4[2][2], -5.25);
+  ASSERT_DOUBLE_EQ(m4[2][3], 7.05);
+
+  ASSERT_DOUBLE_EQ(m4[3][0], 74.3);
+  ASSERT_DOUBLE_EQ(m4[3][1], -46.66);
+  ASSERT_DOUBLE_EQ(m4[3][2], -102.1);
+  ASSERT_DOUBLE_EQ(m4[3][3], -10.86);
 }
 
 TEST_F(Matrix4, GetTransposeOfMatrix) {
-  m = Mat4<double>(Vec4<double>(1.36, 1.28, 0.85), Vec4<double>(1.5, 0., -6.58),
-                   Vec4<double>(4.5, 0., -3.));
+  m4 = Mat4<double>(
+      Vec4<double>(1.36, 1.28, 0.85, -1.), Vec4<double>(1.5, 0., -6.58, -5.),
+      Vec4<double>(4.5, 0., -3., 0.), Vec4<double>(3., 4., 5., 6.));
 
-  Mat4<double> mt = m.transpose();
+  Mat4<double> mt = m4.transpose();
   ASSERT_DOUBLE_EQ(mt[0][0], 1.36);
   ASSERT_DOUBLE_EQ(mt[0][1], 1.5);
   ASSERT_DOUBLE_EQ(mt[0][2], 4.5);
+  ASSERT_DOUBLE_EQ(mt[0][3], 3.);
 
   ASSERT_DOUBLE_EQ(mt[1][0], 1.28);
   ASSERT_DOUBLE_EQ(mt[1][1], 0.);
   ASSERT_DOUBLE_EQ(mt[1][2], 0.);
+  ASSERT_DOUBLE_EQ(mt[1][3], 4.);
 
   ASSERT_DOUBLE_EQ(mt[2][0], 0.85);
   ASSERT_DOUBLE_EQ(mt[2][1], -6.58);
   ASSERT_DOUBLE_EQ(mt[2][2], -3.);
+  ASSERT_DOUBLE_EQ(mt[2][3], 5.);
+
+  ASSERT_DOUBLE_EQ(mt[3][0], -1.);
+  ASSERT_DOUBLE_EQ(mt[3][1], -5.);
+  ASSERT_DOUBLE_EQ(mt[3][2], 0.);
+  ASSERT_DOUBLE_EQ(mt[3][3], 6.);
 }
 
 TEST_F(Matrix4, GetInverseOfMatrix) {
-  m = Mat4<double>(Vec4<double>(1.36, 1.28, 0.85), Vec4<double>(1.5, 0., -6.58),
-                   Vec4<double>(4.5, 0., -3.));
+  m4 = Mat4<double>(
+      Vec4<double>(1.36, 1.28, 0.85, -7.), Vec4<double>(1.5, 0., -6.58, 1.),
+      Vec4<double>(4.5, 0., -3., 10.), Vec4<double>(0., 1., 6.68, -9.));
 
-  m = m.inverse();
+  m4 = m4.inverse();
 
-  ASSERT_DOUBLE_EQ(m[0][0], 0.);
-  ASSERT_DOUBLE_EQ(m[0][1], -0.11947431302270011946);
-  ASSERT_DOUBLE_EQ(m[0][2], 0.26204699322978892872);
+  ASSERT_DOUBLE_EQ(m4[0][0], -0.57644611789241018751);
+  ASSERT_DOUBLE_EQ(m4[0][1], 0.58235744432430050861);
+  ASSERT_DOUBLE_EQ(m4[0][2], 0.20231790085493935382);
+  ASSERT_DOUBLE_EQ(m4[0][3], 0.73785103090228503992);
 
-  ASSERT_DOUBLE_EQ(m[1][0], 0.78125);
-  ASSERT_DOUBLE_EQ(m[1][1], 0.24594907407407407407);
-  ASSERT_DOUBLE_EQ(m[1][2], -0.31809413580246913581);
+  ASSERT_DOUBLE_EQ(m4[1][0], 2.7182004600554049173);
+  ASSERT_DOUBLE_EQ(m4[1][1], -2.1123170380215781781);
+  ASSERT_DOUBLE_EQ(m4[1][2], -0.1173949041428852046);
+  ASSERT_DOUBLE_EQ(m4[1][3], -2.4792965888709182942);
 
-  ASSERT_DOUBLE_EQ(m[2][0], 0.);
-  ASSERT_DOUBLE_EQ(m[2][1], -0.17921146953405017921);
-  ASSERT_DOUBLE_EQ(m[2][2], 0.059737156511350059737);
-}*/
+  ASSERT_DOUBLE_EQ(m4[2][0], -0.096380322259081321122);
+  ASSERT_DOUBLE_EQ(m4[2][1], -0.06186698781201981947);
+  ASSERT_DOUBLE_EQ(m4[2][2], 0.049750604442306739096);
+  ASSERT_DOUBLE_EQ(m4[2][3], 0.12336681249162409103);
+
+  ASSERT_DOUBLE_EQ(m4[3][0], 0.23048665637386018803);
+  ASSERT_DOUBLE_EQ(m4[3][1], -0.28062094628954117469);
+  ASSERT_DOUBLE_EQ(m4[3][2], 0.023882125947969312508);
+  ASSERT_DOUBLE_EQ(m4[3][3], -0.29502292015854104069);
+}

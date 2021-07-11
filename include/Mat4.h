@@ -159,8 +159,8 @@ Mat3<T> Mat4<T>::minor(const int& i, const int& j) const {
 template <typename T>
 Mat4<T> Mat4<T>::inverse() const {
   Mat4<T> inv;
-  for (int i = 0; i < 3; ++i) {
-    for (int j = 0; j < 3; ++j) {
+  for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 4; ++j) {
       inv.m_vec[j][i] = coFactor(i, j);
     }
   }
@@ -228,7 +228,7 @@ Mat4<T> operator*(const Mat4<T>& m1, const Mat4<T>& m2) {
   Vec4<T> retRow4 = Vec4<T>(dot(row4, col1), dot(row4, col2), dot(row4, col3),
                             dot(row4, col4));
 
-  return Mat4<T>(retRow1, retRow2, retRow3);
+  return Mat4<T>(retRow1, retRow2, retRow3, retRow4);
 
   /* 00 01 02 03
    * 10 11 12 13
