@@ -216,7 +216,7 @@ inline std::istream& operator>>(std::istream& in, Vec3<T>& v) {
 
 template <typename T>
 inline std::ostream& operator<<(std::ostream& out, const Vec3<T>& v) {
-  out << "(" << v.x() << "," << v.y() << "," << v.z() << ")";
+  out << "(" << v.x() << "," << v.y() << "," << v.z() << ")" << std::endl;
   return out;
 }
 
