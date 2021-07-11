@@ -1,8 +1,8 @@
-#ifndef MAT3_H
-#define MAT3_H
+#ifndef MAT4_H
+#define MAT4_H
 
-#include "vec4.h"
 #include "Mat3.h"
+#include "vec4.h"
 
 template <class T>
 class Mat4 {
@@ -12,13 +12,14 @@ class Mat4 {
     m_vec[0].setXYZW(num);
     m_vec[1].setXYZW(num);
     m_vec[2].setXYZW(num);
+    m_vec[3].setXYZW(num);
   }
   Mat4<T>(const Vec4<T>& row1, const Vec4<T>& row2, const Vec4<T>& row3,
           const Vec4<T>& row4) {
     m_vec[0] = row1;
     m_vec[1] = row2;
     m_vec[2] = row3;
-    m_vec[3] = row3;
+    m_vec[3] = row4;
   }
 
   Mat4<T>& operator=(const Mat4<T>& c) {
@@ -70,7 +71,7 @@ class Mat4 {
   }
 
   Vec4<T> operator[](int i) const {
-    assert(i >= 0 && i <= 1);
+    assert(i >= 0 && i <= 3);
     if (i == 0) return m_vec[0];
     if (i == 1) return m_vec[1];
     if (i == 2) return m_vec[2];
@@ -78,7 +79,7 @@ class Mat4 {
   }
 
   Vec4<T>& operator[](int i) {
-    assert(i >= 0 && i <= 1);
+    assert(i >= 0 && i <= 3);
     if (i == 0) return m_vec[0];
     if (i == 1) return m_vec[1];
     if (i == 2) return m_vec[2];
@@ -122,19 +123,20 @@ T Mat4<T>::trace() const {
 
 template <typename T>
 T Mat4<T>::determinant() const {
-  double r1 =
-      m_vec[0][0] * (m_vec[1][1] * m_vec[2][2] - m_vec[1][2] * m_vec[2][1]);
-  double r2 =
-      m_vec[0][1] * (m_vec[1][0] * m_vec[2][2] - m_vec[1][2] * m_vec[2][0]);
-  double r3 =
-      m_vec[0][2] * (m_vec[1][0] * m_vec[2][1] - m_vec[1][1] * m_vec[2][0]);
+  double det = 0.;
+  double sign = 1.;
+  for (int j = 0; j < 4; ++j) {
+    Mat3<T> mi = minor(0, j);
+    det += m_vec[0][j] * mi.determinant() * sign;
+    sign = sign * (-1.);
+  }
 
-  return r1 - r2 + r3;
+  return det;
 }
 
 template <typename T>
 Mat3<T> Mat4<T>::minor(const int& i, const int& j) const {
-  Mat2<T> mi;
+  Mat3<T> mi;
 
   int yy = 0;
   for (int y = 0; y < 4; y++) {
@@ -142,11 +144,10 @@ Mat3<T> Mat4<T>::minor(const int& i, const int& j) const {
 
     int xx = 0;
     for (int x = 0; x < 4; x++) {
-      if (x == i) {
-        continue;
-      }
+      if (x == i) continue;
+
+      mi[xx][yy] = m_vec[x][y];
       xx++;
-      mi.m_vec[xx][yy] = m_vec[x][y];
     }
 
     yy++;
@@ -235,4 +236,4 @@ Mat4<T> operator*(const Mat4<T>& m1, const Mat4<T>& m2) {
    * 30 31 32 33*/
 }
 
-#endif  // MAT3
+#endif  // MAT4
