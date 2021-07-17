@@ -112,6 +112,9 @@ class Mat4 {
     return C;
   }
 
+  void Orient(const Vec3<T>& pos, const Vec3<T>& fwd, const Vec3<T>& up);
+  void LookAt(const Vec3<T>& pos, const Vec3<T>& lookAt, const Vec3<T>& up);
+
  private:
   Vec4<T> m_vec[4];
 };
@@ -195,6 +198,33 @@ Mat4<T> Mat4<T>::transpose() const {
   ret[3][3] = m_vec[3][3];
 
   return ret;
+}
+
+template <typename T>
+void Mat4<T>::Orient(const Vec3<T>& pos, const Vec3<T>& fwd,
+                     const Vec3<T>& up) {
+  Vec3<T> left = up.cross(fwd);
+  m_vec[0] = Vec4<T>(fwd.x(), left.x(), up.x(), pos.x());
+  m_vec[1] = Vec4<T>(fwd.y(), left.y(), up.y(), pos.y());
+  m_vec[2] = Vec4<T>(fwd.z(), left.z(), up.z(), pos.z());
+  m_vec[3] = Vec4<T>((T)0, (T)0, (T)0, (T)1);
+}
+template <typename T>
+void Mat4<T>::LookAt(const Vec3<T>& pos, const Vec3<T>& lookAt,
+                     const Vec3<T>& up) {
+  Vec3<T> fwd = pos - lookAt;
+  fwd.normalize();
+
+  Vec3<T> right = up.cross(fwd);
+  right.normalize();
+
+  up = fwd.cross(right);
+  up.normalize();
+
+  m_vec[0] = Vec4(right.x(), right.y(), right.z(), -dot(pos, right));
+  m_vec[1] = Vec4(up.x(), up.y(), up.z(), -dot(pos, up));
+  m_vec[2] = Vec4(fwd.x(), fwd.y(), fwd.z(), -dot(pos, fwd));
+  m_vec[3] = Vec4((T)0, (T)0, (T)0, (T)1);
 }
 
 template <typename T>
