@@ -1,7 +1,7 @@
 #ifndef MAT4_H
 #define MAT4_H
 
-#include "Mat3.h"
+#include "mat3.h"
 #include "vec4.h"
 
 template <class T>
