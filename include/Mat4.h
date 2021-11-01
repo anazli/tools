@@ -221,10 +221,10 @@ void Mat4<T>::LookAt(const Vec3<T>& pos, const Vec3<T>& lookAt,
   up = fwd.cross(right);
   up.normalize();
 
-  m_vec[0] = Vec4(right.x(), right.y(), right.z(), -dot(pos, right));
-  m_vec[1] = Vec4(up.x(), up.y(), up.z(), -dot(pos, up));
-  m_vec[2] = Vec4(fwd.x(), fwd.y(), fwd.z(), -dot(pos, fwd));
-  m_vec[3] = Vec4((T)0, (T)0, (T)0, (T)1);
+  m_vec[0] = Vec4<T>(right.x(), right.y(), right.z(), -dot(pos, right));
+  m_vec[1] = Vec4<T>(up.x(), up.y(), up.z(), -dot(pos, up));
+  m_vec[2] = Vec4<T>(fwd.x(), fwd.y(), fwd.z(), -dot(pos, fwd));
+  m_vec[3] = Vec4<T>((T)0, (T)0, (T)0, (T)1);
 }
 
 template <typename T>
