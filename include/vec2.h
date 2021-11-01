@@ -335,3 +335,4 @@ Vec2<T> getUnitVectorOf(
 }
 
 #endif  // VEC2_H
+
