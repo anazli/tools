@@ -69,3 +69,7 @@ class Point3 {
  private:
   T m_x, m_y, m_z;
 };
+
+typedef Point3<double> Point3d;
+typedef Point3<float> Point3f;
+typedef Point3<int> Point3i;

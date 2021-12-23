@@ -1,6 +1,7 @@
 #ifndef MAT3_H
 #define MAT3_H
 
+#include "mat2.h"
 #include "vec3.h"
 
 template <class T>
@@ -101,6 +102,10 @@ class Mat3 {
  private:
   Vec3<T> m_vec[3];
 };
+
+typedef Mat3<double> Mat3d;
+typedef Mat3<float> Mat3f;
+typedef Mat3<int> Mat3i;
 
 template <typename T>
 T Mat3<T>::trace() const {

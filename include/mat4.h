@@ -119,6 +119,10 @@ class Mat4 {
   Vec4<T> m_vec[4];
 };
 
+typedef Mat4<double> Mat4d;
+typedef Mat4<float> Mat4f;
+typedef Mat4<int> Mat4i;
+
 template <typename T>
 T Mat4<T>::trace() const {
   return m_vec[0][0] + m_vec[1][1] + m_vec[2][2] + m_vec[3][3];

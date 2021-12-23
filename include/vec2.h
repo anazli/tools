@@ -114,6 +114,10 @@ class Vec2 {
   T m_y;
 };
 
+typedef Vec2<double> Vec2d;
+typedef Vec2<float> Vec2f;
+typedef Vec2<int> Vec2i;
+
 //--------------------------------------------
 // Overloaded Member operators
 //--------------------------------------------
@@ -335,4 +339,3 @@ Vec2<T> getUnitVectorOf(
 }
 
 #endif  // VEC2_H
-
