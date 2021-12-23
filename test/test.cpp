@@ -1045,3 +1045,22 @@ TEST_F(Matrix4, GetInverseOfMatrix) {
   ASSERT_DOUBLE_EQ(m4[3][2], 0.023882125947969312508);
   ASSERT_DOUBLE_EQ(m4[3][3], -0.29502292015854104069);
 }
+
+//--------------------------------------------
+//     Point3
+//--------------------------------------------
+
+class point3 : public Test {
+ public:
+  Point3i p;
+};
+
+TEST_F(point3, subtractsPointFromPoint) {
+  p = Point3i(1, 0, 4);
+  Point3i p1 = Point3i(0, 2, 4);
+  Vec3i v = p1 - p;
+  ASSERT_EQ(v.x(), -1);
+  ASSERT_EQ(v.y(), 2);
+  ASSERT_EQ(v.z(), 0);
+  ASSERT_FLOAT_EQ(v.length(), sqrt(5));
+}
