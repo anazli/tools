@@ -1,5 +1,5 @@
 src/main
 build
-test/test
+test/test-cases
 
 tools.*

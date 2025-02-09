@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tools/vec3.h"
+#include "vec3.h"
 
 class OrthoNormalBasis {
  public:
