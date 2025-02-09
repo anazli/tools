@@ -1,5 +1,4 @@
-#ifndef MAT3_H
-#define MAT3_H
+#pragma once
 
 #include "mat2.h"
 #include "vec3.h"
@@ -7,13 +6,17 @@
 template <class T>
 class Mat3 {
  public:
-  Mat3<T>() {}
-  Mat3<T>(const T& num) {
-    m_vec[0].setXYZ(num);
-    m_vec[1].setXYZ(num);
-    m_vec[2].setXYZ(num);
+  Mat3() {
+    m_vec[0] = Vec3<T>(T{1}, T{0}, T{0});
+    m_vec[1] = Vec3<T>(T{0}, T{1}, T{0});
+    m_vec[2] = Vec3<T>(T{0}, T{0}, T{1});
   }
-  Mat3<T>(const Vec3<T>& row1, const Vec3<T>& row2, const Vec3<T>& row3) {
+  Mat3(T num) {
+    m_vec[0].set(num);
+    m_vec[1].set(num);
+    m_vec[2].set(num);
+  }
+  Mat3(const Vec3<T>& row1, const Vec3<T>& row2, const Vec3<T>& row3) {
     m_vec[0] = row1;
     m_vec[1] = row2;
     m_vec[2] = row3;
@@ -23,41 +26,6 @@ class Mat3 {
     m_vec[0] = c[0];
     m_vec[1] = c[1];
     m_vec[2] = c[2];
-    return *this;
-  }
-
-  Mat3<T>& operator+=(const Mat3<T>& c) {
-    m_vec[0] += c[0];
-    m_vec[1] += c[1];
-    m_vec[2] += c[2];
-    return *this;
-  }
-
-  Mat3<T>& operator+=(const T& num) {
-    m_vec[0] += num;
-    m_vec[1] += num;
-    m_vec[2] += num;
-    return *this;
-  }
-
-  Mat3<T>& operator-=(const Mat3<T>& c) {
-    m_vec[0] -= c[0];
-    m_vec[1] -= c[1];
-    m_vec[2] -= c[2];
-    return *this;
-  }
-
-  Mat3<T>& operator-=(const T& num) {
-    m_vec[0] -= num;
-    m_vec[1] -= num;
-    m_vec[2] -= num;
-    return *this;
-  }
-
-  Mat3<T>& operator*=(const T& num) {
-    m_vec[0] *= num;
-    m_vec[1] *= num;
-    m_vec[2] *= num;
     return *this;
   }
 
@@ -90,22 +58,18 @@ class Mat3 {
   }
 
   T determinant() const;
-  Mat2<T> minor(const int& i, const int& j) const;
+  Mat2<T> minor(int i, int j) const;
   Mat3<T> inverse() const;
   Mat3<T> transpose() const;
-  T coFactor(const int& i, const int& j) const {
-    Mat2<T> mi = minor(i, j);
-    T C = T(pow(-1, i + 1 + j + 1)) * mi.determinant();
-    return C;
+  T coFactor(int i, int j) const {
+    return T(pow(-1., i + 1. + j + 1.)) * minor(i, j).determinant();
   }
 
  private:
   Vec3<T> m_vec[3];
 };
 
-typedef Mat3<double> Mat3d;
-typedef Mat3<float> Mat3f;
-typedef Mat3<int> Mat3i;
+using Mat3D = Mat3<float>;
 
 template <typename T>
 T Mat3<T>::trace() const {
@@ -125,24 +89,19 @@ T Mat3<T>::determinant() const {
 }
 
 template <typename T>
-Mat2<T> Mat3<T>::minor(const int& i, const int& j) const {
+Mat2<T> Mat3<T>::minor(int i, int j) const {
   Mat2<T> mi;
-
   int yy = 0;
   for (int y = 0; y < 3; y++) {
     if (y == j) continue;
-
     int xx = 0;
     for (int x = 0; x < 3; x++) {
       if (x == i) continue;
-
       mi[xx][yy] = m_vec[x][y];
       xx++;
     }
-
     yy++;
   }
-
   return mi;
 }
 
@@ -157,7 +116,7 @@ Mat3<T> Mat3<T>::inverse() const {
 
   T det = determinant();
   T invDet = 1. / det;
-  inv *= invDet;
+  inv = inv * invDet;
   return inv;
 }
 
@@ -185,8 +144,18 @@ Mat3<T> operator+(const Mat3<T>& m1, const Mat3<T>& m2) {
 }
 
 template <typename T>
+Mat3<T> operator+(const Mat3<T>& m1, T num) {
+  return Mat3<T>(m1[0] + num, m1[1] + num, m1[2] + num);
+}
+
+template <typename T>
 Mat3<T> operator-(const Mat3<T>& m1, const Mat3<T>& m2) {
   return Mat3<T>(m1[0] - m2[0], m1[1] - m2[1], m1[2] - m2[2]);
+}
+
+template <typename T>
+Mat3<T> operator-(const Mat3<T>& m1, T num) {
+  return Mat3<T>(m1[0] - num, m1[1] - num, m1[2] - num);
 }
 
 template <typename T>
@@ -211,11 +180,14 @@ Mat3<T> operator*(const Mat3<T>& m1, const Mat3<T>& m2) {
 }
 
 template <typename T>
+Mat3<T> operator*(const Mat3<T>& m1, T num) {
+  return Mat3<T>(m1[0] * num, m1[1] * num, m1[2] * num);
+}
+
+template <typename T>
 inline std::ostream& operator<<(std::ostream& out, const Mat3<T>& m) {
   out << m[0];
   out << m[1];
   out << m[2];
   return out;
 }
-
-#endif  // MAT3
