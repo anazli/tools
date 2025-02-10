@@ -1,5 +1,6 @@
 #pragma once
 
+#include "application/error.h"
 #include "mat3.h"
 #include "vec4.h"
 
@@ -24,14 +25,6 @@ class Mat4 {
     m_vec[1] = row2;
     m_vec[2] = row3;
     m_vec[3] = row4;
-  }
-
-  Mat4<T>& operator=(const Mat4<T>& c) {
-    m_vec[0] = c[0];
-    m_vec[1] = c[1];
-    m_vec[2] = c[2];
-    m_vec[3] = c[3];
-    return *this;
   }
 
   auto operator<=>(const Mat4<T>&) const = default;
@@ -120,7 +113,7 @@ Mat3<T> Mat4<T>::minor(int i, int j) const {
 template <typename T>
 Mat4<T> Mat4<T>::inverse() const {
   T det = determinant();
-  //APP_ASSERT(det != 0, "Matrix is not invertible!");
+  APP_ASSERT(det != 0, "Matrix is not invertible!");
   Mat4<T> inv;
   for (int i = 0; i < 4; ++i) {
     for (int j = 0; j < 4; ++j) {
